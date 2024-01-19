@@ -42,6 +42,10 @@ namespace Mango.Web.Controllers
                     TempData["success"] = "Coupon created successfully";
                     return RedirectToAction(nameof(CouponIndex));
                 }
+                else
+                {
+                    TempData["error"] = responseDto.Message;
+                }
             }
             return View(couponDto);
         }
@@ -65,6 +69,10 @@ namespace Mango.Web.Controllers
             {
                 TempData["success"] = "Coupon deleted successfully";
                 return RedirectToAction(nameof(CouponIndex));
+            }
+            else
+            {
+                TempData["error"] = responseDto.Message;
             }
             return View(couponDto);
         }
