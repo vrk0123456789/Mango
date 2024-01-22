@@ -1,4 +1,4 @@
-﻿namespace Mango.Web.Service
+﻿namespace Mango.Web.Service.IService
 {
     public interface ITokenProvider
     {

@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;
 using Mango.Web.Utility;
 using System.Runtime.CompilerServices;
+using Mango.Web.Service.IService;
 
 namespace Mango.Web.Service
 {
