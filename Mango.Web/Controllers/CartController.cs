@@ -19,6 +19,49 @@ namespace Mango.Web.Controllers
         {
             return View(await LoadCartDtoBasedOnLoggedInUser());
         }
+        public async Task<IActionResult> Remove(int cartDetailsId)
+        {
+            var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
+            ResponseDto? responseDto = await _cartService.RemoveFromCartAsync(cartDetailsId);
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["success"] = "Cart updated successfully";
+            }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
+            }
+            return RedirectToAction(nameof(CartIndex));
+        }
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(CartDto cartDto)
+        {
+            ResponseDto? responseDto = await _cartService.ApplyCouponAsync(cartDto);
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["success"] = "Coupon applied successfully";
+            }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
+            }
+            return RedirectToAction(nameof(CartIndex)); ;
+        }
+        [HttpPost]
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            cartDto.CartHeader.CouponCode = string.Empty;
+            ResponseDto? responseDto = await _cartService.ApplyCouponAsync(cartDto);
+            if (responseDto != null && responseDto.IsSuccess)
+            {
+                TempData["success"] = "Coupon removed successfully";
+            }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
+            }
+            return RedirectToAction(nameof(CartIndex)); ;
+        }
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
         {
             var userId = User.Claims.Where(u => u.Type == JwtRegisteredClaimNames.Sub)?.FirstOrDefault()?.Value;
