@@ -30,16 +30,14 @@ namespace Mango.Services.EmailAPI.Services
             message.Append("</ul>");
             await LogAndEmail(message.ToString(), cartDto.CartHeader.Email);
         }
-        public async Task EmailUserRegistration(RegistrationRequestDto registrationRequestDto)
+        public async Task RegisterUserEmailAndLog(string email)
         {
             StringBuilder message = new StringBuilder();
             message.AppendLine("<br/>User Registration Successful");
-            message.AppendLine("<br/>User Email: " + registrationRequestDto.Email);
+            message.AppendLine("<br/>User Email: " + email);
             message.Append("<br/>");
-            message.Append("<ul>");
             
-            message.Append("</ul>");
-            await LogAndEmail(message.ToString(), registrationRequestDto.Email);
+            await LogAndEmail(message.ToString(), "dotnetmastery@gmail.com");
         }
         private async Task<bool> LogAndEmail(string message, string email)
         {

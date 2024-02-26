@@ -5,6 +5,6 @@ namespace Mango.Services.EmailAPI.Services
     public interface IEmailService
     {
         Task EmailCartAndLog(CartDto cartDto);
-        Task EmailUserRegistration(RegistrationRequestDto registrationRequestDto);
+        Task RegisterUserEmailAndLog(string email);
     }
 }
